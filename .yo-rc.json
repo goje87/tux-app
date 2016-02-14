@@ -1,0 +1,17 @@
+{
+  "generator-comet": {
+    "props": {
+      "name": "tux",
+      "version": "0.1.0",
+      "description": "",
+      "keywords": [
+        ""
+      ],
+      "authors": [
+        ""
+      ],
+      "kebabCasedName": "tux",
+      "camelCasedName": "tux"
+    }
+  }
+}

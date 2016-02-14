@@ -1,0 +1,12 @@
+.drawer-items {
+    height: 100%;
+}
+
+.drawer-items .drawer-item {
+    display: block;
+}
+
+.main-slot {
+    position: relative;
+    overflow: auto;
+}

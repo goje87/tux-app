@@ -1,0 +1,49 @@
+<link rel="import" href="/components/bower/polymer/polymer.html" />
+<link rel="import" href="/components/pages/app-page.html" />
+<link rel="import" href="/components/bower/paper-fab/paper-fab.html" />
+<link rel="import" href="/components/bower/iron-icons/iron-icons.html" />
+
+
+<dom-module id="pg-home">
+  <link rel="stylesheet" href="/themes/theme.css" type="css">
+  <style>
+  #siren-button-wrapper {
+    padding: 40% 0 20px;
+  }
+
+  #siren-button {
+    display: inline-block;
+    background-color: #c00;
+    color: #fff;
+    --iron-icon-height: 100px;
+    --iron-icon-width: 100px;
+    width: 132px;
+    height: 132px;
+  }
+
+  #siren-desc {
+    color: var(--secondary-text-color);
+  }
+
+  .center {
+    text-align: center;
+  }
+  </style>
+  <template>
+    <app-page>
+      <section class="center">
+        <div id="siren-button-wrapper">
+            <paper-fab id="siren-button" icon="icons:close"></paper-fab>
+        </div>
+      </section>
+      <section class="center" id="siren-desc">
+        Press above button to raise the panic alert.
+      </section>
+    </app-page>
+  </template>
+  <script>
+  Polymer({
+    is: 'pg-home'
+  });
+  </script>
+</dom-module>

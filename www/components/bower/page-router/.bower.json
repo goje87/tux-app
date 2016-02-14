@@ -1,0 +1,35 @@
+{
+  "name": "page-router",
+  "homepage": "https://github.com/goje87/page-router",
+  "authors": [
+    "Abhilash Goje <me@goje87.com>"
+  ],
+  "description": "Polymer router component based on PageJS.",
+  "main": "page-router.html",
+  "moduleType": [],
+  "keywords": [
+    "router",
+    "page-router",
+    "page"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "page": "visionmedia/page.js#~1.6.3"
+  },
+  "_release": "91e4b76db0",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "91e4b76db0dfd8066bd2ea58db1bba29b23ac76e"
+  },
+  "_source": "https://github.com/goje87/page-router.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/goje87/page-router.git"
+}
