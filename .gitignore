@@ -25,3 +25,10 @@ proguard/
 
 # Log Files
 *.log
+
+# Node modules
+node_modules/
+
+# Bower modules
+bower_components/
+components/bower/
