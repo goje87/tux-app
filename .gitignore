@@ -31,4 +31,4 @@ node_modules/
 
 # Bower modules
 bower_components/
-components/bower/
+www/components/bower/
