@@ -1,0 +1,38 @@
+<link rel="import" href="/components/bower/polymer/polymer.html" />
+
+<!-- TODO: Siren needs to be a singleton. -->
+
+<dom-module id="tux-siren">
+  <template>
+    <audio id="sound" src="siren.mp3" loop></audio>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'tux-siren',
+
+    ready: function() {
+      this.sound = this.$.sound;
+    },
+
+    get isBuzzing() {
+      return this._isBuzzing;
+    },
+
+    buzz: function() {
+      if(this._isBuzzing) return;
+
+      this.sound.play();
+      this._isBuzzing = true;
+    },
+
+    stop: function() {
+      if(!this._isBuzzing) return;
+
+      this.sound.pause();
+      this._isBuzzing = false;
+      this.sound.currentTime = 0;
+    }
+  });
+  </script>
+</dom-module>

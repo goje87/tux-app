@@ -2,6 +2,7 @@
 <link rel="import" href="/components/pages/app-page.html" />
 <link rel="import" href="/components/bower/paper-fab/paper-fab.html" />
 <link rel="import" href="/components/bower/iron-icons/iron-icons.html" />
+<link rel="import" href="/components/tux-siren/tux-siren.html" />
 
 
 <dom-module id="pg-home">
@@ -30,10 +31,11 @@
   }
   </style>
   <template>
+    <tux-siren id="siren"></tux-siren>
     <app-page>
       <section class="center">
         <div id="siren-button-wrapper">
-            <paper-fab id="siren-button" icon="icons:close"></paper-fab>
+            <paper-fab id="siren-button" icon="icons:close" on-click="sirenButtonClicked"></paper-fab>
         </div>
       </section>
       <section class="center" id="siren-desc">
@@ -43,7 +45,16 @@
   </template>
   <script>
   Polymer({
-    is: 'pg-home'
+    is: 'pg-home',
+
+    ready: function() {
+      this.siren = this.$.siren;
+    },
+
+    sirenButtonClicked: function() {
+      if(!this.siren.isBuzzing) this.siren.buzz();
+      else this.siren.stop();
+    }
   });
   </script>
 </dom-module>
