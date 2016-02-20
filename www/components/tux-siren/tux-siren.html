@@ -1,18 +1,48 @@
 <link rel="import" href="/components/bower/polymer/polymer.html" />
+<link rel="import" href="/components/bower/paper-dialog/paper-dialog.html" />
+<link rel="import" href="/components/bower/paper-button/paper-button.html" />
+<link rel="import" href="/components/bower/iron-input/iron-input.html" />
 
 <!-- TODO: Siren needs to be a singleton. -->
 
 <dom-module id="tux-siren">
+  <style>
+  #pin-dialog {
+    text-align: center;
+  }
+
+  #pin-input {
+    display: block;
+    width: 2.5em;
+    margin: 10px auto;
+    font-size: 2em;
+    text-align: center;
+  }
+  </style>
   <template>
     <audio id="sound" src="siren.mp3" loop></audio>
+    <paper-dialog id="pin-dialog" modal on-iron-overlay-opened="dialogShown">
+      <h2>Enter PIN</h2>
+        <div>
+          Enter PIN to stop the siren.
+          <input is="iron-input" id="pin-input" type="password" allowed-pattern="[0-9]" maxlength="4" autofocus></input>
+        </div>
+      <div class="buttons">
+        <paper-button on-click="verifyPin">Verify</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
   Polymer({
     is: 'tux-siren',
 
+    expectedPin: "1234",
+
     ready: function() {
-      this.sound = this.$.sound;
+      this.sound = this.$['sound'];
+      this.pinDialog = this.$['pin-dialog'];
+      this.pinInput = this.$['pin-input'];
     },
 
     get isBuzzing() {
@@ -24,6 +54,17 @@
 
       this.sound.play();
       this._isBuzzing = true;
+
+      this.pinDialog.open();
+    },
+
+    verifyPin: function() {
+      var enteredPin = this.pinInput.value;
+
+      if(enteredPin === this.expectedPin) {
+        this.stop();
+        this.pinDialog.close();
+      }
     },
 
     stop: function() {
@@ -32,6 +73,10 @@
       this.sound.pause();
       this._isBuzzing = false;
       this.sound.currentTime = 0;
+    },
+
+    dialogShown: function() {
+      this.pinInput.value = "";
     }
   });
   </script>
