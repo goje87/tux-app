@@ -1,0 +1,110 @@
+<link rel="import" href="/components/bower/polymer/polymer.html" />
+<link rel="import" href="/components/tux-siren/tux-siren.html" />
+
+<dom-module id="sos-button">
+  <style>
+  :host {
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  }
+  .button-holder {
+    width: 100%;
+    height: 100%;
+    border-radius: 25%;
+    background-color: #ddd;
+    position: relative;
+  }
+
+  .screw {
+    position: absolute;
+    width: 0.75em;
+    height: 0.75em;
+    background-color: #888;
+    border-radius: 50%;
+  }
+
+  .screw.s1 {
+    left: 10%;
+    top: 10%;
+  }
+
+  .screw.s2 {
+    right: 10%;
+    top: 10%;
+  }
+
+  .screw.s3 {
+    right: 10%;
+    bottom: 10%;
+  }
+
+  .screw.s4 {
+    left: 10%;
+    bottom: 10%;
+  }
+
+  .button-cover {
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    bottom: 12%;
+    right: 12%;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 0.5em solid #eee;
+    box-shadow: 0 0 1em rgba(0,0,0,0.35);
+    box-sizing: content-box;
+  }
+
+  .button {
+    width: 100%;
+    height: 100%;
+    background-color: #c00;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 0.35em rgba(0,0,0,0.2);
+    text-align: center;
+    color: #ddd;
+    font-family: sans-serif;
+    display: table;
+  }
+
+  .button-text {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 250%;
+    letter-spacing: 0.1em;
+    padding-left: 0.2em;
+    text-shadow: 0 0 0.15em rgba(0,0,0,0.5);
+  }
+  </style>
+
+  <template>
+    <tux-siren id="siren"></tux-siren>
+    <div class="button-holder" on-click="sosButtonClicked">
+      <div class="screw s1"></div>
+      <div class="screw s2"></div>
+      <div class="screw s3"></div>
+      <div class="screw s4"></div>
+      <div class="button-cover">
+        <div class="button"><span class="button-text">SOS</span></div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'sos-button',
+
+    ready: function () {
+      this.siren = this.$['siren'];
+    },
+
+    sosButtonClicked: function() {
+      if(!this.siren.isBuzzing) this.siren.buzz();
+      else this.siren.stop();
+    }
+  });
+  </script>
+</dom-module>

@@ -1,15 +1,13 @@
 <link rel="import" href="/components/bower/polymer/polymer.html" />
 <link rel="import" href="/components/pages/app-page.html" />
-<link rel="import" href="/components/bower/paper-fab/paper-fab.html" />
-<link rel="import" href="/components/bower/iron-icons/iron-icons.html" />
-<link rel="import" href="/components/tux-siren/tux-siren.html" />
+<link rel="import" href="/components/sos-button/sos-button.html" />
 
 
 <dom-module id="pg-home">
   <link rel="stylesheet" href="/themes/theme.css" type="css">
   <style>
   #siren-button-wrapper {
-    padding: 40% 0 20px;
+    padding: 10% 0 20px;
   }
 
   #siren-button {
@@ -31,11 +29,10 @@
   }
   </style>
   <template>
-    <tux-siren id="siren"></tux-siren>
     <app-page>
       <section class="center">
         <div id="siren-button-wrapper">
-            <paper-fab id="siren-button" icon="icons:close" on-click="sirenButtonClicked"></paper-fab>
+          <sos-button></sos-button>
         </div>
       </section>
       <section class="center" id="siren-desc">
@@ -45,16 +42,7 @@
   </template>
   <script>
   Polymer({
-    is: 'pg-home',
-
-    ready: function() {
-      this.siren = this.$.siren;
-    },
-
-    sirenButtonClicked: function() {
-      if(!this.siren.isBuzzing) this.siren.buzz();
-      else this.siren.stop();
-    }
+    is: 'pg-home'
   });
   </script>
 </dom-module>
