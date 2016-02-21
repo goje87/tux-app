@@ -1,0 +1,68 @@
+<link rel="import" href="/components/bower/polymer/polymer.html" />
+<link rel="import" href="/components/bower/iron-localstorage/iron-localstorage.html" />
+<link rel="import" href="/components/tux-pin-dialog/tux-pin-dialog.html" />
+
+<dom-module id="tux-pin-registrar">
+  <template>
+    <iron-localstorage name="userPin" value="{{registeredPin}}"
+      on-iron-localstorage-load-empty="registeredPinIsEmpty">
+    </iron-localstorage>
+    <tux-pin-dialog id="pin-dialog-1" pin={{enteredPin}}>
+      <tux-pin-dialog-heading>Enter PIN</tux-pin-dialog-heading>
+      <tux-pin-dialog-buttons>
+        <paper-button on-click="pinEntered">Next</paper-button>
+      </tux-pin-dialogbuttons>
+    </tux-pin-dialog>
+    <tux-pin-dialog id="pin-dialog-2" pin={{reEnteredPin}}>
+      <tux-pin-dialog-heading>Re-Enter PIN</tux-pin-dialog-heading>
+      <tux-pin-dialog-buttons>
+        <paper-button on-click="pinReEntered">Finish</paper-button>
+      </tux-pin-dialogbuttons>
+    </tux-pin-dialog>
+  </template>
+  <script>
+  Polymer({
+    is: 'tux-pin-registrar',
+
+    properties: {
+      registeredPin: {
+        type: String,
+        notify: true
+      }
+    },
+
+    ready: function() {
+      this.pinDialog1 = this.$['pin-dialog-1'];
+      this.pinDialog2 = this.$['pin-dialog-2'];
+      this.pinStorage = this.$['user-pin-storage'];
+    },
+
+    pinEntered: function() {
+      this.pinDialog1.close();
+      this.pinDialog2.open();
+    },
+
+    pinReEntered: function() {
+
+      if(!this.enteredPin.length || this.enteredPin !== this.reEnteredPin) {
+        alert('Entere PINs do not match. Please try again!');
+        this.pinDialog2.close();
+        this.registerPin();
+        return;
+      }
+
+      this.set('registeredPin', this.enteredPin);
+      this.pinDialog2.close();
+      window.location.reload();
+    },
+
+    registerPin: function() {
+      this.pinDialog1.open();
+    },
+
+    registeredPinIsEmpty: function() {
+      this.fire('registered-pin-empty');
+    }
+  });
+  </script>
+</dom-module>

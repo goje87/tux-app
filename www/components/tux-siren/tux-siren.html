@@ -1,13 +1,14 @@
 <link rel="import" href="/components/bower/polymer/polymer.html" />
-<link rel="import" href="/components/bower/paper-dialog/paper-dialog.html" />
+<link rel="import" href="/components/tux-pin-dialog/tux-pin-dialog.html" />
 <link rel="import" href="/components/bower/paper-button/paper-button.html" />
 <link rel="import" href="/components/bower/iron-input/iron-input.html" />
+<link rel="import" href="/components/tux-pin-registrar/tux-pin-registrar.html" />
 
 <!-- TODO: Siren needs to be a singleton. -->
 
 <dom-module id="tux-siren">
   <style>
-  #pin-dialog {
+  #tux-pin-dialog {
     text-align: center;
   }
 
@@ -21,28 +22,25 @@
   </style>
   <template>
     <audio id="sound" src="siren.mp3" loop></audio>
-    <paper-dialog id="pin-dialog" modal on-iron-overlay-opened="dialogShown">
-      <h2>Enter PIN</h2>
-        <div>
-          Enter PIN to stop the siren.
-          <input is="iron-input" id="pin-input" type="password" allowed-pattern="[0-9]" maxlength="4" autofocus></input>
-        </div>
-      <div class="buttons">
+    <tux-pin-registrar id="inSiren" registered-pin="{{registeredPin}}"></tux-pin-registrar>
+    <tux-pin-dialog id="pin-dialog" pin="{{enteredPin}}">
+      <tux-pin-dialog-heading>Enter PIN</tux-pin-dialog-heading>
+      <tux-pin-dialog-body>
+        Enter PIN to stop the siren.
+      </tux-pin-dialog-body>
+      <tux-pin-dialog-buttons>
         <paper-button on-click="verifyPin">Verify</paper-button>
-      </div>
-    </paper-dialog>
+      </tux-pin-dialog-buttons>
+    </tux-pin-dialog>
   </template>
 
   <script>
   Polymer({
     is: 'tux-siren',
 
-    expectedPin: "1234",
-
     ready: function() {
       this.sound = this.$['sound'];
       this.pinDialog = this.$['pin-dialog'];
-      this.pinInput = this.$['pin-input'];
     },
 
     get isBuzzing() {
@@ -59,9 +57,7 @@
     },
 
     verifyPin: function() {
-      var enteredPin = this.pinInput.value;
-
-      if(enteredPin === this.expectedPin) {
+      if(this.enteredPin === this.registeredPin) {
         this.stop();
         this.pinDialog.close();
       }
@@ -73,10 +69,6 @@
       this.sound.pause();
       this._isBuzzing = false;
       this.sound.currentTime = 0;
-    },
-
-    dialogShown: function() {
-      this.pinInput.value = "";
     }
   });
   </script>

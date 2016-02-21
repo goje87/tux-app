@@ -7,9 +7,12 @@
 <link rel="import" href="/components/bower/paper-button/paper-button.html" />
 <link rel="import" href="/components/bower/iron-icons/iron-icons.html" />
 <link rel="import" href="/components/bower/page-router/page-router.html" />
+<link rel="import" href="/components/tux-pin-registrar/tux-pin-registrar.html" />
 
 <dom-module id="tux-app">
   <template>
+    <tux-pin-registrar id="tux-pin-registrar" registered-pin="{{registeredPin}}"
+      on-registered-pin-empty="userPinEmpty"></tux-pin-registrar>
     <paper-drawer-panel id="drawerPanel">
       <paper-header-panel drawer on-click="_drawerHeaderPanelClicked">
         <paper-toolbar>
@@ -45,10 +48,16 @@
 
       router.route({path: '/', comp: 'pg-home'});
       router.start();
+
+      this.pinRegistrar = this.$['tux-pin-registrar'];
     },
 
     _drawerHeaderPanelClicked: function() {
       this.$.drawerPanel.closeDrawer();
+    },
+
+    userPinEmpty: function() {
+      this.pinRegistrar.registerPin();
     }
   });
   </script>
